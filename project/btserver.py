@@ -45,24 +45,27 @@ class BTServer(asyncore.dispatcher):
 
 
     def handle_accept(self):
-        # This method is called when an incoming connection request from a client is accept.
 
-        if self.saving:
-            self.saver.stop()
-            self.saver.join()
-            self.saving = False
-            print "[DB] Storing sensor data stopped"
+
 
         # Get the client-side BT socket
         pair = self.socket.accept()
 
         if pair is not None:
+
+            # get historical data if exists
+            history = None
+            if self.saving:
+                self.stop_saving()
+                history = HistoricalProcessor.get_all_historical_data()
+
             client_sock, client_addr = pair
-            client_handler = BTClientHandler(socket=client_sock, server=self)
+            client_handler = BTClientHandler(socket=client_sock, server=self, history=history)
             self.active_client_handlers.add(client_handler)
 
             print "Connected to %s," % repr(client_addr[0]) + \
                   " number of active connections is %d" % len(self.active_client_handlers)
+
 
     def handle_connect(self):
         pass
@@ -81,3 +84,4 @@ class BTServer(asyncore.dispatcher):
             self.saver.stop()
             self.saver.join()
             self.saving = False
+            print "[DB] Storing sensor data stopped"

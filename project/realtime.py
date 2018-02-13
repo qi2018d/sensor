@@ -4,6 +4,10 @@ import json
 import sqlite3
 from bluetooth import BluetoothError
 
+from json import encoder
+encoder.FLOAT_REPR = lambda o: format(o, '.2f')
+
+
 class RealtimeProcessor(threading.Thread):
 
     def __init__(self, bt_handler):

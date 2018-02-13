@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1edf9257-efb6-4f6a-a8f5-7e73a990dbaa" name="Default" comment="" />
+    <list default="true" id="1edf9257-efb6-4f6a-a8f5-7e73a990dbaa" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/project/air_data.db" afterPath="$PROJECT_DIR$/project/air_data.db" />
+      <change beforePath="$PROJECT_DIR$/project/bthandler.py" afterPath="$PROJECT_DIR$/project/bthandler.py" />
+      <change beforePath="$PROJECT_DIR$/project/btserver.py" afterPath="$PROJECT_DIR$/project/btserver.py" />
+      <change beforePath="$PROJECT_DIR$/project/historical.py" afterPath="$PROJECT_DIR$/project/historical.py" />
+      <change beforePath="$PROJECT_DIR$/project/realtime.py" afterPath="$PROJECT_DIR$/project/realtime.py" />
+    </list>
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +23,7 @@
     <SUITE FILE_PATH="coverage/UDOO$btserver__1_.coverage" NAME="btserver (1) Coverage Results" MODIFIED="1518067499960" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignments/week3" />
     <SUITE FILE_PATH="coverage/UDOO$temp.coverage" NAME="temp Coverage Results" MODIFIED="1518169927649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/project" />
     <SUITE FILE_PATH="coverage/UDOO$led.coverage" NAME="led Coverage Results" MODIFIED="1518068235890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignments/week3" />
-    <SUITE FILE_PATH="coverage/UDOO$main.coverage" NAME="main Coverage Results" MODIFIED="1518495084433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/project" />
+    <SUITE FILE_PATH="coverage/UDOO$main.coverage" NAME="main Coverage Results" MODIFIED="1518503903212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/project" />
     <SUITE FILE_PATH="coverage/UDOO$bthandler.coverage" NAME="bthandler Coverage Results" MODIFIED="1517353556419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignments/week3" />
     <SUITE FILE_PATH="coverage/UDOO$btserver.coverage" NAME="btserver Coverage Results" MODIFIED="1518117452970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/project" />
     <SUITE FILE_PATH="coverage/UDOO$sensor.coverage" NAME="sensor Coverage Results" MODIFIED="1518117623439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/project" />
@@ -39,8 +47,8 @@
           <file leaf-file-name="btserver.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/project/btserver.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="396">
-                  <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+                <state relative-caret-position="144">
+                  <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -48,27 +56,31 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="historical.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="historical.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/project/historical.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="931">
-                  <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+                <state relative-caret-position="1140">
+                  <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
                   <folding>
                     <element signature="e#1#17#0" expanded="true" />
-                    <marker date="1518482301308" expanded="true" signature="611:682" ph="INSERT INTO air_data... " />
-                    <marker date="1518482301308" expanded="true" signature="611:728" ph="INSERT \ INT... air_data" />
-                    <marker date="1518482301308" expanded="true" signature="1314:1383" ph="SELECT name sqlite_master" />
-                    <marker date="1518482301308" expanded="true" signature="1407:1638" ph="CREATE TABLE... air_data" />
+                    <element signature="e#356#378#0" expanded="false" />
+                    <element signature="e#416#448#0" expanded="false" />
+                    <marker date="1518503563741" expanded="true" signature="601:672" ph="INSERT INTO air_data... " />
+                    <marker date="1518503563741" expanded="true" signature="601:718" ph="INSERT \ INT... air_data" />
+                    <marker date="1518503563741" expanded="true" signature="1368:1437" ph="SELECT name sqlite_master" />
+                    <marker date="1518503563741" expanded="true" signature="1461:1692" ph="CREATE TABLE... air_data" />
+                    <marker date="1518503563741" expanded="true" signature="2042:2065" ph="SELECT * FRO... air_data" />
+                    <marker date="1518503563741" expanded="true" signature="2201:2221" ph="DELETE FROM air_data... " />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="realtime.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="realtime.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/project/realtime.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="414">
-                  <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+                <state relative-caret-position="481">
+                  <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
                   </folding>
@@ -79,11 +91,11 @@
           <file leaf-file-name="sensor.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/project/sensor.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="19">
-                  <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+                <state relative-caret-position="1249">
+                  <caret line="124" column="27" lean-forward="false" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="27" />
                   <folding>
+                    <element signature="e#147#319#0" expanded="false" />
                     <element signature="e#2841#3243#0" expanded="false" />
-                    <element signature="e#4641#4896#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -96,8 +108,8 @@
           <file leaf-file-name="bthandler.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/project/bthandler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
-                  <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                <state relative-caret-position="177">
+                  <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -118,7 +130,7 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/project/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
+                <state relative-caret-position="-8">
                   <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
@@ -147,6 +159,9 @@
       <find>Connection rese</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -173,10 +188,10 @@
         <option value="$PROJECT_DIR$/project/temp.py" />
         <option value="$PROJECT_DIR$/project/main.py" />
         <option value="$PROJECT_DIR$/project/sensor.py" />
-        <option value="$PROJECT_DIR$/project/historical.py" />
-        <option value="$PROJECT_DIR$/project/realtime.py" />
         <option value="$PROJECT_DIR$/project/btserver.py" />
+        <option value="$PROJECT_DIR$/project/historical.py" />
         <option value="$PROJECT_DIR$/project/bthandler.py" />
+        <option value="$PROJECT_DIR$/project/realtime.py" />
       </list>
     </option>
   </component>
@@ -192,6 +207,7 @@
     <option name="width" value="1162" />
     <option name="height" value="676" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -262,6 +278,8 @@
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/project" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Project/UDOO/project/btserver.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -437,18 +455,18 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3180212" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1965924" sideWeight="0.49166667" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30153123" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30153123" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" x="0" y="23" width="1440" height="837" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08194444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2393868" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2393868" sideWeight="0.5083333" order="10" side_tool="true" content_ui="tabs" x="0" y="23" width="1440" height="837" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14166667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28386337" sideWeight="0.4763889" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2850412" sideWeight="0.48333332" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3042453" sideWeight="0.475" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -490,6 +508,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/project/btserver.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -497,7 +522,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -778,7 +803,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="-8">
           <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -796,29 +821,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/sensor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="1249">
+          <caret line="124" column="27" lean-forward="false" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="27" />
           <folding>
+            <element signature="e#147#319#0" expanded="false" />
             <element signature="e#2841#3243#0" expanded="false" />
-            <element signature="e#4641#4896#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/realtime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="34" column="39" lean-forward="true" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project/btserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+        <state relative-caret-position="144">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -827,24 +842,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/historical.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+        <state relative-caret-position="1140">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
           <folding>
             <element signature="e#1#17#0" expanded="true" />
-            <marker date="1518482301308" expanded="true" signature="611:682" ph="INSERT INTO air_data... " />
-            <marker date="1518482301308" expanded="true" signature="611:728" ph="INSERT \ INT... air_data" />
-            <marker date="1518482301308" expanded="true" signature="1314:1383" ph="SELECT name sqlite_master" />
-            <marker date="1518482301308" expanded="true" signature="1407:1638" ph="CREATE TABLE... air_data" />
+            <element signature="e#356#378#0" expanded="false" />
+            <element signature="e#416#448#0" expanded="false" />
+            <marker date="1518503563741" expanded="true" signature="601:672" ph="INSERT INTO air_data... " />
+            <marker date="1518503563741" expanded="true" signature="601:718" ph="INSERT \ INT... air_data" />
+            <marker date="1518503563741" expanded="true" signature="1368:1437" ph="SELECT name sqlite_master" />
+            <marker date="1518503563741" expanded="true" signature="1461:1692" ph="CREATE TABLE... air_data" />
+            <marker date="1518503563741" expanded="true" signature="2042:2065" ph="SELECT * FRO... air_data" />
+            <marker date="1518503563741" expanded="true" signature="2201:2221" ph="DELETE FROM air_data... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project/bthandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="177">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/realtime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>

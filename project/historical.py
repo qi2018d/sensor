@@ -25,11 +25,10 @@ class HistoricalProcessor(threading.Thread):
 
     def run(self):
 
+        self.create_table_if_not_exist()
+
         conn = sqlite3.connect("air_data.db")
         cur = conn.cursor()
-
-        self.create_table_if_not_exist(conn, cur)
-
         sql = 'INSERT INTO air_data(`time`, `no2`, `o3`, `co`, `so2`, `pm2_5`, `temp`)\
                 VALUES (?, ?, ?, ?, ?, ?, ?)'
 
@@ -54,7 +53,10 @@ class HistoricalProcessor(threading.Thread):
         conn.close()
 
 
-    def create_table_if_not_exist(self, conn, cur):
+    def create_table_if_not_exist(self):
+
+        conn = sqlite3.connect("air_data.db")
+        cur = conn.cursor()
 
         check_sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='air_data'"
         create_sql = "CREATE TABLE 'air_data' ( `data_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `temp` REAL NOT NULL, `no2` REAL NOT NULL, `o3` REAL NOT NULL, `co` REAL NOT NULL, `so2` REAL NOT NULL, `time` INTEGER NOT NULL, `pm2_5` REAL NOT NULL)"
@@ -63,5 +65,21 @@ class HistoricalProcessor(threading.Thread):
         rows = cur.fetchall()
 
         if len(rows) is 0:
+            print "Creating air_data table"
             cur.execute(create_sql)
             conn.commit()
+
+
+    @staticmethod
+    def get_all_historical_data():
+
+        conn = sqlite3.connect("air_data.db")
+        cur = conn.cursor()
+
+        cur.execute("SELECT  * FROM air_data")
+        data = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+
+        cur.execute("DELETE FROM air_data")
+        conn.commit()
+
+        return data

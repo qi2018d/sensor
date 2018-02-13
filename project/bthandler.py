@@ -1,13 +1,25 @@
 import asyncore
 from bterror import BTError
 from realtime import RealtimeProcessor
+import json
+
+from json import encoder
+encoder.FLOAT_REPR = lambda o: format(o, '.2f')
+
 
 class BTClientHandler(asyncore.dispatcher):
     """BT handler for client-side socket"""
 
-    def __init__(self, socket, server):
+    def __init__(self, socket, server, history):
         asyncore.dispatcher.__init__(self, socket)
         self.server = server
+
+        # send historical data if exists
+        if history is not None:
+            data = {'type': 'historical', 'data': history}
+            self.send(json.dumps(data, sort_keys=True))
+
+        # start to send real-time data
         self.sender = RealtimeProcessor(self)
         self.sender.start()
 
