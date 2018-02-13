@@ -8,10 +8,10 @@ from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
 
-class RealtimeProcessor(threading.Thread):
+class RealtimeManager(threading.Thread):
 
     def __init__(self, bt_handler):
-        super(RealtimeProcessor, self).__init__()
+        super(RealtimeManager, self).__init__()
 
         self._stop_event = threading.Event()
 

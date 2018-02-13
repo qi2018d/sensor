@@ -1,7 +1,7 @@
 import asyncore
 from bluetooth import *
 from bthandler import BTClientHandler
-from historical import HistoricalProcessor
+from historical import HistoryManager
 
 class BTServer(asyncore.dispatcher):
     """Asynchronous Bluetooth  Server"""
@@ -34,10 +34,8 @@ class BTServer(asyncore.dispatcher):
         self.port = self.socket.getsockname()[1]
 
         # start storing sensor data
-        self.saver = None
-        self.saving = False
-
-        self.start_saving()
+        self.history_manager = HistoryManager()
+        self.history_manager.start_saving()
 
         print "Server initiated..."
         print "[DB] Start storing sensor data"
@@ -46,8 +44,6 @@ class BTServer(asyncore.dispatcher):
 
     def handle_accept(self):
 
-
-
         # Get the client-side BT socket
         pair = self.socket.accept()
 
@@ -55,9 +51,9 @@ class BTServer(asyncore.dispatcher):
 
             # get historical data if exists
             history = None
-            if self.saving:
-                self.stop_saving()
-                history = HistoricalProcessor.get_all_historical_data()
+            if self.history_manager.is_saving():
+                self.history_manager.stop_saving()
+                history = self.history_manager.get_saved_data()
 
             client_sock, client_addr = pair
             client_handler = BTClientHandler(socket=client_sock, server=self, history=history)
@@ -73,15 +69,3 @@ class BTServer(asyncore.dispatcher):
     def handle_close(self):
         self.close()
 
-    def start_saving(self):
-        if not self.saving:
-            self.saving = True
-            self.saver = HistoricalProcessor()
-            self.saver.start()
-
-    def stop_saving(self):
-        if self.saving:
-            self.saver.stop()
-            self.saver.join()
-            self.saving = False
-            print "[DB] Storing sensor data stopped"

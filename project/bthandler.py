@@ -1,11 +1,16 @@
 import asyncore
 from bterror import BTError
-from realtime import RealtimeProcessor
+from realtime import RealtimeManager
 import json
 
 from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 class BTClientHandler(asyncore.dispatcher):
     """BT handler for client-side socket"""
@@ -16,11 +21,14 @@ class BTClientHandler(asyncore.dispatcher):
 
         # send historical data if exists
         if history is not None:
-            data = {'type': 'historical', 'data': history}
-            self.send(json.dumps(data, sort_keys=True))
+            chunk_size = 5
+            history_chunks = [history[i:i + chunk_size] for i in xrange(0, len(history), chunk_size)]
+
+            for chunk in history_chunks:
+                self.send(json.dumps({'type': 'historical', 'data': chunk}, sort_keys=True))
 
         # start to send real-time data
-        self.sender = RealtimeProcessor(self)
+        self.sender = RealtimeManager(self)
         self.sender.start()
 
     def handle_read(self):
