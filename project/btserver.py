@@ -33,9 +33,7 @@ class BTServer(asyncore.dispatcher):
         )
         self.port = self.socket.getsockname()[1]
 
-        # start storing sensor data
-        self.history_manager = HistoryManager()
-        self.history_manager.start_saving()
+
 
         print "Server initiated..."
         print "[DB] Start storing sensor data"
@@ -50,10 +48,10 @@ class BTServer(asyncore.dispatcher):
         if pair is not None:
 
             # get historical data if exists
-            history = None
-            if self.history_manager.is_saving():
-                self.history_manager.stop_saving()
-                history = self.history_manager.get_saved_data()
+            # history = None
+            # if self.history_manager.is_saving():
+            #     self.history_manager.stop_saving()
+            #     history = self.history_manager.get_saved_data()
 
             client_sock, client_addr = pair
             client_handler = BTClientHandler(socket=client_sock, server=self, history=history)

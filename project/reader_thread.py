@@ -2,11 +2,18 @@ import threading
 import math
 import json
 import time
+from db_manager import DBManager
 
 from neo import Gpio
 
+import aqi
 
-class Reader:
+print(aqi.to_iaqi(aqi.POLLUTANT_O3_8H, '1'))
+
+
+
+
+class Reader(threading.Thread):
 
     selector_pins = [16, 17, 18, 19]
     mux_channel = {
@@ -46,20 +53,25 @@ class Reader:
 
     read_time = 0.2
 
-    def __init__(self):
+    def __init__(self, sender):
+        threading.Thread.__init__(self)
 
+        self.sender = sender
         self.lock = threading.Lock()
         self.gpio = Gpio()
 
         # init to LOW
-        self.lock.acquire()
         for pin in Reader.selector_pins:
             self.gpio.pinMode(pin, self.gpio.OUTPUT)
             self.gpio.digitalWrite(pin, self.gpio.LOW)
-        self.lock.release()
 
+    def run(self):
+        while True:
+            data = self.__read_all()
+            DBManager.insert_air_data(data)
+            self.sender.send({"type": "real-time", "data":data})
 
-    def read_all(self):
+    def __read_all(self):
         """
         Read all sensor values
         :return: json string of sensor values (temp, so2, no2, co, o3, pm25)
@@ -161,8 +173,6 @@ class Reader:
     def __read_adc(self, channel):
         s_bin = self.__dec_to_bin(channel)
 
-        self.lock.acquire()
-
         # write
         for i in range(4):
             self.gpio.digitalWrite(Reader.selector_pins[i], s_bin[i])
@@ -170,8 +180,6 @@ class Reader:
         # read
         raw = int(open("/sys/bus/iio/devices/iio:device0/in_voltage0_raw").read())
         scale = float(open("/sys/bus/iio/devices/iio:device0/in_voltage_scale").read())
-
-        self.lock.release()
 
         return raw * scale
 

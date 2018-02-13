@@ -1,6 +1,6 @@
 import asyncore
 from bterror import BTError
-from realtime import RealtimeManager
+from sender import Sender
 import json
 
 from json import encoder
@@ -28,7 +28,7 @@ class BTClientHandler(asyncore.dispatcher):
                 self.send(json.dumps({'type': 'historical', 'data': chunk}, sort_keys=True))
 
         # start to send real-time data
-        self.sender = RealtimeManager(self)
+        self.sender = Sender(self)
         self.sender.start()
 
     def handle_read(self):
