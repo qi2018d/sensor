@@ -27,9 +27,6 @@ class BTClientHandler(asyncore.dispatcher):
             for chunk in history_chunks:
                 self.send(json.dumps({'type': 'historical', 'data': chunk}, sort_keys=True))
 
-        # start to send real-time data
-        self.sender = Sender(self)
-        self.sender.start()
 
     def handle_read(self):
 

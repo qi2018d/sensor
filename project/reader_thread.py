@@ -1,19 +1,11 @@
 import threading
-import math
-import json
 import time
-from db_manager import DBManager
 
+from db_manager import DBManager
 from neo import Gpio
 
-import aqi
 
-print(aqi.to_iaqi(aqi.POLLUTANT_O3_8H, '1'))
-
-
-
-
-class Reader(threading.Thread):
+class ReaderThread(threading.Thread):
 
     selector_pins = [16, 17, 18, 19]
     mux_channel = {
@@ -61,7 +53,7 @@ class Reader(threading.Thread):
         self.gpio = Gpio()
 
         # init to LOW
-        for pin in Reader.selector_pins:
+        for pin in ReaderThread.selector_pins:
             self.gpio.pinMode(pin, self.gpio.OUTPUT)
             self.gpio.digitalWrite(pin, self.gpio.LOW)
 
@@ -89,12 +81,12 @@ class Reader(threading.Thread):
 
     def __read_temp(self):
 
-        channel = Reader.mux_channel['temp']
+        channel = ReaderThread.mux_channel['temp']
         subtotal = 0.0
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
             mV = self.__read_adc(channel)
             temp = (mV- 500) / 10 - 10
@@ -127,9 +119,9 @@ class Reader(threading.Thread):
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
-            v = self.__read_adc(Reader.mux_channel['pm2_5']) / 1000
+            v = self.__read_adc(ReaderThread.mux_channel['pm2_5']) / 1000
             hppcf = 240.0*(v**6) - 2491.3*(v**5) + 9448.7*(v**4) - 14840.0*(v**3) + 10684.0*(v**2) + 2211.8*v + 7.9623
             subtotal += .518 + .00274 * hppcf
             c += 1
@@ -138,9 +130,9 @@ class Reader(threading.Thread):
 
     def __calibrate_op(self, name, temp):
 
-        channel_we = Reader.mux_channel[name]['we']
-        channel_ae = Reader.mux_channel[name]['ae']
-        calibration = Reader.calibration[name]
+        channel_we = ReaderThread.mux_channel[name]['we']
+        channel_ae = ReaderThread.mux_channel[name]['ae']
+        calibration = ReaderThread.calibration[name]
         zero_we = calibration['we_zero']
         zero_ae = calibration['ae_zero']
 
@@ -148,7 +140,7 @@ class Reader(threading.Thread):
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
             we = self.__read_adc(channel_we)
             ae = self.__read_adc(channel_ae)
@@ -175,7 +167,7 @@ class Reader(threading.Thread):
 
         # write
         for i in range(4):
-            self.gpio.digitalWrite(Reader.selector_pins[i], s_bin[i])
+            self.gpio.digitalWrite(ReaderThread.selector_pins[i], s_bin[i])
 
         # read
         raw = int(open("/sys/bus/iio/devices/iio:device0/in_voltage0_raw").read())

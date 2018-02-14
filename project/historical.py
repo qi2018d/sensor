@@ -1,7 +1,7 @@
 
 import threading
 import sqlite3
-from reader_thread import Reader
+from reader_thread import ReaderThread
 
 class HistoryManager:
 
@@ -10,7 +10,7 @@ class HistoryManager:
         def __init__(self):
             threading.Thread.__init__(self)
             self.__stop_event = threading.Event()
-            self.reader = Reader()
+            self.reader = ReaderThread()
 
         def stop(self):
             self.__stop_event.set()

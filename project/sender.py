@@ -5,13 +5,16 @@ json.encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
 class Sender:
 
+    lock = threading.Lock()
+
     def __init__(self, active_handles):
-        threading.Thread.__init__(self)
         self.active_handlers = active_handles
 
     def send(self, data):
+        Sender.lock.acquire()
         for handler in self.active_handlers:
             handler.send(json.dumps(data))
+        Sender.lock.relese()
 
 '''
     def run(self):

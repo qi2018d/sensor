@@ -2,6 +2,8 @@ import asyncore
 from bluetooth import *
 from bthandler import BTClientHandler
 from historical import HistoryManager
+from sender import Sender
+
 
 class BTServer(asyncore.dispatcher):
     """Asynchronous Bluetooth  Server"""
@@ -32,7 +34,7 @@ class BTServer(asyncore.dispatcher):
             profiles=[SERIAL_PORT_PROFILE]
         )
         self.port = self.socket.getsockname()[1]
-
+        self.sender = Sender()
 
 
         print "Server initiated..."
