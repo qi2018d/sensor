@@ -49,7 +49,6 @@ class ReaderThread(threading.Thread):
         threading.Thread.__init__(self)
 
         self.sender = sender
-        self.lock = threading.Lock()
         self.gpio = Gpio()
 
         # init to LOW
@@ -69,13 +68,13 @@ class ReaderThread(threading.Thread):
         :return: json string of sensor values (temp, so2, no2, co, o3, pm25)
         """
 
-        temp = self.__read_temp()
-        no2 = self.__read_no2_ppb(temp)
-        o3 = self.__read_o3_ppb(temp)
-        co = self.__read_co_ppm(temp)
-        so2 = self.__read_so2_ppb(temp)
-        pm2_5 = self.__read_pm2_5()
-        timestamp = time.time()
+        temp = round(self.__read_temp(), 2)
+        no2 = round(self.__read_no2_ppb(temp),2)
+        o3 = round(self.__read_o3_ppb(temp), 2)
+        co = round(self.__read_co_ppm(temp), 2)
+        so2 = round(self.__read_so2_ppb(temp), 2)
+        pm2_5 = round(self.__read_pm2_5(), 2)
+        timestamp = int(time.time())
 
         return {'temp': temp, 'no2': no2, 'o3':o3, 'co':co, 'so2':so2, 'pm2_5': pm2_5, 'time': timestamp}
 

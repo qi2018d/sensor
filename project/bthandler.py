@@ -1,9 +1,10 @@
 import asyncore
-from bterror import BTError
-from sender import Sender
-import json
-
 from json import encoder
+
+from bterror import BTError
+
+import time
+
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
 
@@ -15,44 +16,30 @@ def chunks(l, n):
 class BTClientHandler(asyncore.dispatcher):
     """BT handler for client-side socket"""
 
-    def __init__(self, socket, server, history):
+    def __init__(self, socket, server):
         asyncore.dispatcher.__init__(self, socket)
         self.server = server
-
-        # send historical data if exists
-        if history is not None:
-            chunk_size = 5
-            history_chunks = [history[i:i + chunk_size] for i in xrange(0, len(history), chunk_size)]
-
-            for chunk in history_chunks:
-                self.send(json.dumps({'type': 'historical', 'data': chunk}, sort_keys=True))
 
 
     def handle_read(self):
 
         try:
             data = self.recv(1024)
-
             if not data:
                 return
 
         except Exception as e:
-            # BTError.print_error(handler=self, error=BTError.ERR_READ, error_message=repr(e))
+            print "[Connection Lost]",
+            BTError.print_error(handler=self, error=BTError.ERR_READ, error_message=repr(e))
             self.handle_close()
 
     def handle_close(self):
 
-        # request stop realtime thread and join it
-        print "handle close"
-        self.sender.stop()
-        self.sender.join()
-
         # remove this handler from server
         self.server.active_client_handlers.remove(self)
 
-        # if this handler is the final, start storing data
+        # if this was the last connection, update disconnected time
         if len(self.server.active_client_handlers) is 0:
-            print "[DB] Final connection lost, start storing data to database"
-            self.server.start_saving()
+            self.server.disconnected_time = time.time()
 
         self.close()
