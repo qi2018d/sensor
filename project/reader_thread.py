@@ -1,12 +1,11 @@
 import threading
-import math
-import json
 import time
 
+from db_manager import DBManager
 from neo import Gpio
 
 
-class Reader:
+class ReaderThread(threading.Thread):
 
     selector_pins = [16, 17, 18, 19]
     mux_channel = {
@@ -46,43 +45,47 @@ class Reader:
 
     read_time = 0.2
 
-    def __init__(self):
+    def __init__(self, sender):
+        threading.Thread.__init__(self)
 
-        self.lock = threading.Lock()
+        self.sender = sender
         self.gpio = Gpio()
 
         # init to LOW
-        self.lock.acquire()
-        for pin in Reader.selector_pins:
+        for pin in ReaderThread.selector_pins:
             self.gpio.pinMode(pin, self.gpio.OUTPUT)
             self.gpio.digitalWrite(pin, self.gpio.LOW)
-        self.lock.release()
 
+    def run(self):
+        while True:
+            data = self.__read_all()
+            DBManager.insert_air_data(data)
+            self.sender.send({"type": "real-time", "data":data})
 
-    def read_all(self):
+    def __read_all(self):
         """
         Read all sensor values
         :return: json string of sensor values (temp, so2, no2, co, o3, pm25)
         """
 
-        temp = self.__read_temp()
-        no2 = self.__read_no2_ppb(temp)
-        o3 = self.__read_o3_ppb(temp)
-        co = self.__read_co_ppm(temp)
-        so2 = self.__read_so2_ppb(temp)
-        pm2_5 = self.__read_pm2_5()
-        timestamp = time.time()
+        temp = round(self.__read_temp(), 2)
+        no2 = round(self.__read_no2_ppb(temp),2)
+        o3 = round(self.__read_o3_ppb(temp), 2)
+        co = round(self.__read_co_ppm(temp), 2)
+        so2 = round(self.__read_so2_ppb(temp), 2)
+        pm2_5 = round(self.__read_pm2_5(), 2)
+        timestamp = int(time.time())
 
         return {'temp': temp, 'no2': no2, 'o3':o3, 'co':co, 'so2':so2, 'pm2_5': pm2_5, 'time': timestamp}
 
     def __read_temp(self):
 
-        channel = Reader.mux_channel['temp']
+        channel = ReaderThread.mux_channel['temp']
         subtotal = 0.0
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
             mV = self.__read_adc(channel)
             temp = (mV- 500) / 10 - 10
@@ -115,9 +118,9 @@ class Reader:
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
-            v = self.__read_adc(Reader.mux_channel['pm2_5']) / 1000
+            v = self.__read_adc(ReaderThread.mux_channel['pm2_5']) / 1000
             hppcf = 240.0*(v**6) - 2491.3*(v**5) + 9448.7*(v**4) - 14840.0*(v**3) + 10684.0*(v**2) + 2211.8*v + 7.9623
             subtotal += .518 + .00274 * hppcf
             c += 1
@@ -126,9 +129,9 @@ class Reader:
 
     def __calibrate_op(self, name, temp):
 
-        channel_we = Reader.mux_channel[name]['we']
-        channel_ae = Reader.mux_channel[name]['ae']
-        calibration = Reader.calibration[name]
+        channel_we = ReaderThread.mux_channel[name]['we']
+        channel_ae = ReaderThread.mux_channel[name]['ae']
+        calibration = ReaderThread.calibration[name]
         zero_we = calibration['we_zero']
         zero_ae = calibration['ae_zero']
 
@@ -136,7 +139,7 @@ class Reader:
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < Reader.read_time:
+        while time.time() -start_time < ReaderThread.read_time:
 
             we = self.__read_adc(channel_we)
             ae = self.__read_adc(channel_ae)
@@ -161,17 +164,13 @@ class Reader:
     def __read_adc(self, channel):
         s_bin = self.__dec_to_bin(channel)
 
-        self.lock.acquire()
-
         # write
         for i in range(4):
-            self.gpio.digitalWrite(Reader.selector_pins[i], s_bin[i])
+            self.gpio.digitalWrite(ReaderThread.selector_pins[i], s_bin[i])
 
         # read
         raw = int(open("/sys/bus/iio/devices/iio:device0/in_voltage0_raw").read())
         scale = float(open("/sys/bus/iio/devices/iio:device0/in_voltage_scale").read())
-
-        self.lock.release()
 
         return raw * scale
 
