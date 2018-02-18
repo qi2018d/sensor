@@ -2,12 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="ssh://udooer@192.168.137.2:22/usr/bin/python" name="ssh://udooer@192.168.137.2:22/usr/bin/python">
-        <fileTransfer host="192.168.137.2" port="22" accessType="SFTP">
-          <option name="port" value="22" />
-        </fileTransfer>
-      </webServer>
-      <webServer id="00fcf06b-9362-47ec-ab05-974e538a0b2e" name="UDOO" url="">
+      <webServer id="93ae9df2-b3f8-408d-996f-4c3cc66ae768" name="UDOO" url="http://192.168.137.2">
         <fileTransfer host="192.168.137.2" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />

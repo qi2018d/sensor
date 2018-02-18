@@ -19,10 +19,9 @@ class AQIThread(threading.Thread):
         time.sleep(self.wait)
 
         while True:
-
-            data = self.calculate_aqi()
+            aqi = self.calculate_aqi()
             # DBManager.insert_aqi_data(data)
-            self.sender.send({"type": "aqi", "data":data})
+            self.sender.send({"type": "aqi", "data": aqi})
 
             time.sleep(self.interval)
 
@@ -40,23 +39,21 @@ class AQIThread(threading.Thread):
             aqi[key] = self.__get_aqi(key, avg)
 
         aqi["time"] = int(time.time())
-        print str(len(data_set))+ "   "  + str(aqi)
+        print "AQI of " + str(len(data_set)) + " data  "  + str(aqi)
         return aqi
-
 
     def __get_aqi(self, key, concentration):
 
         table = {
-            "criteria" : {
-                "o3" :      [    0,    55,    71,    86,   106,   405,   505,   605 ],
-                "co":       [    0,   4.5,   9.5,  12.5,  15.5,  30.5,  40.5,  50.5 ],
-                "so2":      [    0,    36,    76,   186,   305,   605,   805,  1005 ],
-                "no2":      [    0,    54,   101,   361,   650,  1250,  1650,  2050 ],
-                "pm2_5":    [    0,  12.1,  35.5,  55.5, 150.5, 250.5, 350.5, 500.5 ]
+            "criteria": {
+                "o3":       [0,    55,    71,    86,   106,   405,   505,   605],
+                "co":       [0,   4.5,   9.5,  12.5,  15.5,  30.5,  40.5,  50.5],
+                "so2":      [0,    36,    76,   186,   305,   605,   805,  1005],
+                "no2":      [0,    54,   101,   361,   650,  1250,  1650,  2050],
+                "pm2_5":    [0,  12.1,  35.5,  55.5, 150.5, 250.5, 350.5, 500.5]
             },
-            "index" :       [    0,    51,   101,   151,   201,   301,   401,   501 ]
+            "index":        [0,    51,   101,   151,   201,   301,   401,   501]
         }
-
 
         for i in range(len(table["criteria"][key]) - 1):
 

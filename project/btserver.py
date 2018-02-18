@@ -3,9 +3,9 @@ import time
 
 from bluetooth import *
 
-from aqi_thread import AQIThread
+from aqi import AQIThread
 from bthandler import BTClientHandler
-from reader_thread import ReaderThread
+from sensing import SensingThread
 from sender import Sender
 
 
@@ -43,14 +43,14 @@ class BTServer(asyncore.dispatcher):
         self.sender = Sender(self.active_client_handlers)
 
         # start thread that read sensor, save to db and send it to app
-        self.reader_thread = ReaderThread(self.sender)
-        self.reader_thread.start()
-        print "Starts reading, storing air data from sensors"
+        self.sensing_thread = SensingThread(self.sender)
+        self.sensing_thread.daemon = True
+        self.sensing_thread.start()
 
         # start thread that calculate aqi from stored data and send it to app
         self.aqi_thread = AQIThread(self.sender)
+        self.aqi_thread.daemon = True
         self.aqi_thread.start()
-        print "Starts calculating aqi from db"
 
         print "Server initiated... Waiting for android device to be connected on port %d" %self.port
 
@@ -72,8 +72,7 @@ class BTServer(asyncore.dispatcher):
             else:
                 self.active_client_handlers.add(client_handler)
 
-
-            print "Connected to %s," % repr(client_addr[0]) + \
+            print "[Connected to %s]," % repr(client_addr[0]) + \
                   " number of active connections is %d" % len(self.active_client_handlers)
 
     def handle_connect(self):

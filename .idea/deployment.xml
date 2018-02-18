@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="UDOO" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="UDOO">
     <serverData>
       <paths name="UDOO">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/udooer/sensor" local="$PROJECT_DIR$" web="" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="ssh://udooer@192.168.137.2:22/usr/bin/python">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/tmp/pycharm_project_473" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/udooer/sensor" local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
           </mappings>
         </serverdata>
       </paths>
