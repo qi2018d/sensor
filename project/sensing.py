@@ -5,7 +5,7 @@ from db_manager import DBManager
 from neo import Gpio
 
 
-class ReaderThread(threading.Thread):
+class SensingThread(threading.Thread):
 
     selector_pins = [16, 17, 18, 19]
     mux_channel = {
@@ -52,15 +52,16 @@ class ReaderThread(threading.Thread):
         self.gpio = Gpio()
 
         # init to LOW
-        for pin in ReaderThread.selector_pins:
+        for pin in SensingThread.selector_pins:
             self.gpio.pinMode(pin, self.gpio.OUTPUT)
             self.gpio.digitalWrite(pin, self.gpio.LOW)
 
     def run(self):
         while True:
             data = self.__read_all()
+            print "Raw value : " + str(data)
             DBManager.insert_air_data(data)
-            self.sender.send({"type": "real-time", "data":data})
+            self.sender.send({"type": "real-time", "data": data})
 
     def __read_all(self):
         """
@@ -80,12 +81,12 @@ class ReaderThread(threading.Thread):
 
     def __read_temp(self):
 
-        channel = ReaderThread.mux_channel['temp']
+        channel = SensingThread.mux_channel['temp']
         subtotal = 0.0
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < ReaderThread.read_time:
+        while time.time() -start_time < SensingThread.read_time:
 
             mV = self.__read_adc(channel)
             temp = (mV- 500) / 10 - 10
@@ -102,7 +103,6 @@ class ReaderThread(threading.Thread):
 
         return result
         #return 25
-
     def __read_no2_ppb(self, temp):
         return self.__calibrate_op('no2', temp)
     def __read_o3_ppb(self, temp):
@@ -111,27 +111,25 @@ class ReaderThread(threading.Thread):
         return self.__calibrate_op('co', temp) / 1000
     def __read_so2_ppb(self, temp):
         return self.__calibrate_op('so2', temp)
-
     def __read_pm2_5(self):
 
         subtotal = 0.0
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < ReaderThread.read_time:
+        while time.time() -start_time < SensingThread.read_time:
 
-            v = self.__read_adc(ReaderThread.mux_channel['pm2_5']) / 1000
+            v = self.__read_adc(SensingThread.mux_channel['pm2_5']) / 1000
             hppcf = 240.0*(v**6) - 2491.3*(v**5) + 9448.7*(v**4) - 14840.0*(v**3) + 10684.0*(v**2) + 2211.8*v + 7.9623
             subtotal += .518 + .00274 * hppcf
             c += 1
 
         return subtotal / c
-
     def __calibrate_op(self, name, temp):
 
-        channel_we = ReaderThread.mux_channel[name]['we']
-        channel_ae = ReaderThread.mux_channel[name]['ae']
-        calibration = ReaderThread.calibration[name]
+        channel_we = SensingThread.mux_channel[name]['we']
+        channel_ae = SensingThread.mux_channel[name]['ae']
+        calibration = SensingThread.calibration[name]
         zero_we = calibration['we_zero']
         zero_ae = calibration['ae_zero']
 
@@ -139,7 +137,7 @@ class ReaderThread(threading.Thread):
         c = 0
         start_time = time.time()
 
-        while time.time() -start_time < ReaderThread.read_time:
+        while time.time() -start_time < SensingThread.read_time:
 
             we = self.__read_adc(channel_we)
             ae = self.__read_adc(channel_ae)
@@ -166,14 +164,13 @@ class ReaderThread(threading.Thread):
 
         # write
         for i in range(4):
-            self.gpio.digitalWrite(ReaderThread.selector_pins[i], s_bin[i])
+            self.gpio.digitalWrite(SensingThread.selector_pins[i], s_bin[i])
 
         # read
         raw = int(open("/sys/bus/iio/devices/iio:device0/in_voltage0_raw").read())
         scale = float(open("/sys/bus/iio/devices/iio:device0/in_voltage_scale").read())
 
         return raw * scale
-
     def __dec_to_bin(self, n):
         num = [0, 0, 0, 0]
 

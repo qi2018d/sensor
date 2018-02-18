@@ -1,17 +1,7 @@
 import asyncore
-from json import encoder
-
 from bterror import BTError
-
 import time
 
-encoder.FLOAT_REPR = lambda o: format(o, '.2f')
-
-
-def chunks(l, n):
-    """Yield successive n-sized chunks from l."""
-    for i in range(0, len(l), n):
-        yield l[i:i + n]
 
 class BTClientHandler(asyncore.dispatcher):
     """BT handler for client-side socket"""
@@ -19,7 +9,6 @@ class BTClientHandler(asyncore.dispatcher):
     def __init__(self, socket, server):
         asyncore.dispatcher.__init__(self, socket)
         self.server = server
-
 
     def handle_read(self):
 

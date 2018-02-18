@@ -49,7 +49,8 @@ class DBManager:
         conn = sqlite3.connect(DBManager.db_name)
         cur = conn.cursor()
         cur.execute('SELECT * FROM air WHERE `time` > ?', (timestamp,))
-        data = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+
+        data = [dict((cur.description[i][0], value) for i, value in enumerate(row) if i is not 0) for row in cur.fetchall()]
         conn.close()
 
         return data
@@ -77,6 +78,7 @@ class DBManager:
                          `pm2_5`    REAL      NOT NULL)")
 
         conn.commit()
+        conn.close()
 
     @staticmethod
     def __create_aqi_table_if_not_exist():
