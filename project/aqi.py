@@ -31,6 +31,7 @@ class AQIThread(threading.Thread):
         aqi = {}
         for key in {'o3', 'co', 'so2', 'no2', 'pm2_5'}:
 
+
             avg = 0
             for i in range(len(data_set)):
                 avg += data_set[i][key]

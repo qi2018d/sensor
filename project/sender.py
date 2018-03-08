@@ -10,6 +10,7 @@ class Sender:
         self.lock = threading.Lock()
         self.active_handlers = active_handles
         self.wait = 50 #ms
+        self.error_wait = 100#ms
 
     def send(self, data):
 
@@ -20,11 +21,15 @@ class Sender:
                 time.sleep(self.wait/1000)
             except:
                 print "Error while sending data : " + str(data)
+                time.sleep(self.error_wait/1000)
+
         self.lock.release()
 
     def send_air_history_from(self, timestamp):
 
         data = DBManager.get_air_data_from(timestamp)
+        print "Sending " + str(len(data)) + " historical data from " + str(timestamp)
+
         chunk_size = 5
 
         # chop chop chop in chunk with size of chunk_size
